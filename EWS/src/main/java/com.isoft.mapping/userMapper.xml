@@ -8,4 +8,7 @@
       insert into tb_user(id,uname,upwd,email,role,registerTime,lastLoginTime)
        values(null,#{uname},md5(#{upwd}),#{email},'employee',now(),now());
     </insert>
+    <select id="findAllUser" parameterType="map" resultType="map">
+        select * from tb_user limit #{page},#{pageSize}
+    </select>
 </mapper>

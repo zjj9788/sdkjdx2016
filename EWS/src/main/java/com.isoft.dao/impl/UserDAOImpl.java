@@ -48,4 +48,15 @@ public class UserDAOImpl implements IUserDAO {
         else
             return false;
     }
+
+    @Override
+    public List<Map<String, Object>> findAllUser(int page, int pageSize) {
+        SqlSession sqlSession = sessionFactoryBean.openSession(true);
+        String statement ="com.isoft.mapping.userMapper.findAllUser";
+        Map map=new HashMap();
+        map.put("page",page*pageSize);
+        map.put("pageSize",pageSize);
+        List<Map<String, Object>> list=  sqlSession.selectList(statement,map);
+        return list;
+    }
 }
