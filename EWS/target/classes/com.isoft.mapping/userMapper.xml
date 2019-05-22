@@ -11,4 +11,7 @@
     <select id="findAllUser" parameterType="map" resultType="map">
         select * from tb_user limit #{page},#{pageSize}
     </select>
+    <select id="findUserCount" resultType="map">
+        SELECT count(*) as `count` from tb_user;
+    </select>
 </mapper>

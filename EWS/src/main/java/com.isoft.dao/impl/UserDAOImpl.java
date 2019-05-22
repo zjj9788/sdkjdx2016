@@ -52,11 +52,25 @@ public class UserDAOImpl implements IUserDAO {
     @Override
     public List<Map<String, Object>> findAllUser(int page, int pageSize) {
         SqlSession sqlSession = sessionFactoryBean.openSession(true);
-        String statement ="com.isoft.mapping.userMapper.findAllUser";
-        Map map=new HashMap();
-        map.put("page",page*pageSize);
-        map.put("pageSize",pageSize);
-        List<Map<String, Object>> list=  sqlSession.selectList(statement,map);
+        String statement = "com.isoft.mapping.userMapper.findAllUser";
+        Map map = new HashMap();
+        map.put("page", (page-1) * pageSize);
+        map.put("pageSize", pageSize);
+        List<Map<String, Object>> list = sqlSession.selectList(statement, map);
         return list;
+    }
+
+    @Override
+    public Map<String, Object> findUserCount() {
+        try {
+            SqlSession sqlSession = sessionFactoryBean.openSession(true);
+            String statement = "com.isoft.mapping.userMapper.findUserCount";
+            Map map = sqlSession.selectOne(statement);
+            System.out.println(map);
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

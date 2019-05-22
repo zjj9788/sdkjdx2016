@@ -35,4 +35,9 @@ e.printStackTrace();
     public List<Map<String, Object>> findAllUser(int page, int pageSize) {
         return userDAO.findAllUser(page,pageSize);
     }
+
+    @Override
+    public Map<String, Object> findUserCount() {
+        return userDAO.findUserCount();
+    }
 }
