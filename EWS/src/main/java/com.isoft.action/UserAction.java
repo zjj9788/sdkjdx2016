@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class UserAction {
     @RequestMapping("/findAllUser.do")
     @ResponseBody
     public Map<String, Object> findAllUser(int page, int limit) {
-        System.out.println(page+","+limit);
+        System.out.println(page + "," + limit);
         List<Map<String, Object>> list = userService.findAllUser(page, limit);
         Map<String, Object> userCount = userService.findUserCount();
         Map map = new HashMap();
@@ -50,5 +51,31 @@ public class UserAction {
         map.put("count", userCount.get("count"));//用户表中的总记录数
         map.put("data", list);
         return map;//返回JSON格式数据，但是不能转换，因为找不到JSON消息转换器
+    }
+    @RequestMapping("/userTotal.do")
+    @ResponseBody
+    public Map<String, Object> userTotal() {
+
+        List<Map<String, Object>> list = userService.userTotal();
+        Map map = new HashMap();
+        List roleList=new ArrayList();
+        List countlist=new ArrayList();
+        for (Map mp:list) {
+            roleList.add(mp.get("role"));
+            countlist.add(mp.get("count"));
+        }
+        map.put("roleList",roleList);
+        map.put("countList",countlist);
+        return map;
+    }
+
+    @RequestMapping("/deleteUserInfoById.do")
+    @ResponseBody
+    public String deleteUserInfoById(int id) {
+        String result = "success";
+        int i = userService.deleteUserInfoById(id);
+        if (i == 0)
+            result = "fault";
+        return result;//返回JSON格式数据，但是不能转换，因为找不到JSON消息转换器
     }
 }
