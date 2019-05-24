@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="layui3.4/css/layui.css"/>
     <script type="text/javascript" src="jquery3.4.1/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+    $(function () {
+        if(sessionStorage.getItem("uname")==null){
+            layer.msg("非法用户，请登录!");
+            setInterval("window.location.href=\"index.html\"",3000);
+        }else{
+            var uname=sessionStorage.getItem("uname");
+            $("#loginName").html(uname);
+        }
+
+    });
     function loadUsermanagerPage() {
         $("#mainFrame").load("userManager.html");
     }
@@ -15,9 +25,9 @@
     }
     function exit() {
         layer.confirm("是否真的要退出系统?",{title:"退出提示",btn:["残忍离开","继续使用"]},function (index) {
-          if(index==2){
-          window.location.href="index.html";
-          }
+             sessionStorage.clear();
+            window.location.href="index.html";
+
         })
     }
 </script>
@@ -45,11 +55,11 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    老张
+                    <label id="loginName"></label>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href=""><span class="layui-icon layui-icon-auz"></span> 个人中心</a></dd>
-                    <dd><a href=""><span class="layui-icon layui-icon-password"></span> 个人中心</a> 修改密码</a></dd>
+                    <dd><a href=""><span class="layui-icon layui-icon-password"></span> 修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="javaScript:exit()">退出</a></li>

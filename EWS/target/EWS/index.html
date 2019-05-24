@@ -70,8 +70,10 @@
                 },
                 method: "post",
                 success: function (result) {//这是回调函数
-                    layer.alert("登录" + result);
-                    window.location.href="admin.html";
+                    //layer.alert("登录" + result);
+                    sessionStorage.setItem("uname",uname);
+                   // alert(uname);
+                   window.location.href="admin.html";
                 },
                 error: function () {
                     layer.msg("请求服务器失败!");

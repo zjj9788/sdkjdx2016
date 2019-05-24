@@ -28,8 +28,10 @@ public class UserDAOImpl implements IUserDAO {
         System.out.println(map);
         List list = sqlSession.selectList(statment, map);
         System.out.println(list);
-        if (list != null)
-            return "success";
+        if (list != null){
+            statment="com.isoft.mapping.userMapper.updateLoginTime";
+            sqlSession.update(statment,uname);
+            return "success";}
         else
             return "fault";
     }
